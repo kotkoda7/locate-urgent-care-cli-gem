@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-require 'nokogiri'
-require 'open-uri'
+gem 'nokogiri'
+gem 'capybara'
+gem 'poltergeist'
 
 
 # Specify your gem's dependencies in locate_urgent_care.gemspec
 gemspec
 
-require 'pry'
+gem 'pry'

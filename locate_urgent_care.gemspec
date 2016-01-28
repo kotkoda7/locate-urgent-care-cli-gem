@@ -6,12 +6,12 @@ require 'locate_urgent_care/version'
 Gem::Specification.new do |spec|
   spec.name          = "locate_urgent_care"
   spec.version       = LocateUrgentCare::VERSION
-  spec.authors       = ["marcotsui2003"]
+  spec.authors       = ["Marco Tsui"]
   spec.email         = ["marcotsui2003@yahoo.com"]
-
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.files         = ["lib/locate_urgent_care.rb"]
+  spec.summary       = "Locate urgent care in your area."
+  spec.description   = ""
+  spec.homepage      = "https://github.com/marcotsui2003/locate-urgent-care-cli-gem"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
