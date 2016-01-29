@@ -69,10 +69,39 @@ class LocateUrgentCare::Scraper
       clinic_hash[:url]        = clinic.css("h2>a")[0]['href']
       clinic_hash
       #binding.pry
-    end
+    end.compact
 
   end
   	
 
 end
+
+
+class LocateUrgentCare::Clinic
+
+  attr_accessor :name, :url, :tel, :rating, :distance, :directions
+  
+  @all = []
+
+  def initialize(attributes = {})
+    attributes.each do |key, value|
+      self.send("#{key}=",value)
+    end
+    self.class.all << self
+  end
+
+  def self.all
+    @all
+  end
+
+  def self.create_clinics(clinics_array)
+    clinics_array.each do |clinic_hash|
+      self.new(clinic_hash)
+    end
+    self.all
+  end
+
+end
+
+
 
