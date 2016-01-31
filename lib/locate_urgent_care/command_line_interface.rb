@@ -41,36 +41,39 @@ class LocateUrgentCare::CommandLineInterface
   def display_clinic_names
     num = LocateUrgentCare::Clinic.all.size
     puts "We found #{num} clinics near you zip codes open now:"
+    
     if num > 0
       (1..num).each do |i|
         puts "#{i}. #{LocateUrgentCare::Clinic.all[i-1].name}."
       end
       return_clinic_info
     end
+
+    run_again? if num == 0
   end
 
   def return_clinic_info
     num = LocateUrgentCare::Clinic.all.size
     puts "Which clinic you want to look into further? (1- #{num}):"
     input = gets.chomp.to_i
-    return_clinic_info if !(1..num).include?(input)
-
-    clinic = LocateUrgentCare::Clinic.all[input-1]
-    puts "Name      : #{clinic.name}"
-    puts "Tel       : #{clinic.tel}"
-    puts "Distance  : #{clinic.distance}"
-    puts "url       : #{clinic.url}"
-    puts "rating    : #{clinic.rating}"
-    puts "directions: #{clinic.directions}"
-
-    puts "Do you want to look at another clinic?(Y/N)"
-    input1 = gets.chomp.to_s.upcase
-    return_clinic_info if input1 == "Y"
-    
+    if (1..num).include?(input)
+      clinic = LocateUrgentCare::Clinic.all[input-1]
+      puts "Name      : #{clinic.name}"
+      puts "Tel       : #{clinic.tel}"
+      puts "Distance  : #{clinic.distance}"
+      puts "url       : #{clinic.url}"
+      puts "rating    : #{clinic.rating}"
+      puts "directions: #{clinic.directions}"
+      puts "\nDo you want to look at another clinic?(Y/N)"
+      input1 = gets.chomp.upcase
+      return_clinic_info if input1 == "Y"
+    else
+      return_clinic_info
+    end 
   end
 
   def run_again?
-    puts "Do you want to search again? (Y/N):"
+    puts "Do you want to search another zip code? (Y/N):"
     inputs = gets.chomp.upcase
     if inputs == "Y"
       run
