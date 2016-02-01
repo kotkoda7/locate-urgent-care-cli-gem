@@ -15,7 +15,7 @@ class LocateUrgentCare::Scraper
     number_of_pages = (number_of_entries/5.0).floor + (number_of_entries % 5 == 0 ? 0:1)
     case 
     when number_of_pages == 0
-      nil
+      results = []
     when number_of_pages == 1
       results = doc.css('div.description')
     when number_of_pages > 1

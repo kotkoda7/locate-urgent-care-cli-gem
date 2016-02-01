@@ -54,8 +54,6 @@ class LocateUrgentCare::CommandLineInterface
       end
       return_clinic_info
     end
-
-    run_again? if num == 0
   end
 
   def return_clinic_info
@@ -81,10 +79,10 @@ class LocateUrgentCare::CommandLineInterface
   def run_again?
     puts "\nDo you want to search another zip code? (Y/N):"
     inputs = gets.chomp.upcase
-    if inputs == "Y"
-      run
-    else
+    if inputs != "Y"
       puts "\nThank you for using Locate Urgent Care. Have a nice day!"
+    else
+      run
     end
   end
 
