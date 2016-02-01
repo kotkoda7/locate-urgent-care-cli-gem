@@ -4,6 +4,7 @@ require 'open-uri'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
+require 'area'
 
 require_relative '../lib/locate_urgent_care/scraper.rb'
 require_relative '../lib/locate_urgent_care/clinic.rb'

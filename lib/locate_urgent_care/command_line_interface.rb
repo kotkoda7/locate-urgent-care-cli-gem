@@ -16,12 +16,17 @@ class LocateUrgentCare::CommandLineInterface
   end
 
   def get_zip_code
-    puts "Please enter your zip code:"
-    @zip_code = gets.chomp.to_i
+    puts "\nPlease enter your zip code:"
+    @zip_code = gets.chomp.to_s
+    if @zip_code.size != 5 || @zip_code.to_region.nil?
+      puts "\nInvalid zip code."
+      get_zip_code
+    end
+    #binding.pry
   end
 
   def get_category_id
-    puts "Please select from the following categories:"
+    puts "\nPlease select from the following categories:"
     puts "1.Urgent Care."
     puts "2.Occuptaional Medicine."
     puts "3.Primary Care."
@@ -36,11 +41,12 @@ class LocateUrgentCare::CommandLineInterface
     clinic_pages = LocateUrgentCare::Scraper.scrape_clinic_pages(@zip_code,@category_id)
     clinics_array = LocateUrgentCare::Scraper.scrape_clinic_info(clinic_pages)
     LocateUrgentCare::Clinic.create_clinics(clinics_array)
+    binding.pry
   end
 
   def display_clinic_names
     num = LocateUrgentCare::Clinic.all.size
-    puts "We found #{num} clinics near you zip codes open now:"
+    puts "\nWe found #{num} clinics near you zip codes open now:"
     
     if num > 0
       (1..num).each do |i|
@@ -54,11 +60,11 @@ class LocateUrgentCare::CommandLineInterface
 
   def return_clinic_info
     num = LocateUrgentCare::Clinic.all.size
-    puts "Which clinic you want to look into further? (1- #{num}):"
+    puts "\nWhich clinic you want to look into further? (1- #{num}):"
     input = gets.chomp.to_i
     if (1..num).include?(input)
       clinic = LocateUrgentCare::Clinic.all[input-1]
-      puts "Name      : #{clinic.name}"
+      puts "\nName      : #{clinic.name}"
       puts "Tel       : #{clinic.tel}"
       puts "Distance  : #{clinic.distance}"
       puts "url       : #{clinic.url}"
@@ -73,12 +79,12 @@ class LocateUrgentCare::CommandLineInterface
   end
 
   def run_again?
-    puts "Do you want to search another zip code? (Y/N):"
+    puts "\nDo you want to search another zip code? (Y/N):"
     inputs = gets.chomp.upcase
     if inputs == "Y"
       run
     else
-      puts "Thank you for using Locate Urgent Care. Have a nice day!"
+      puts "\nThank you for using Locate Urgent Care. Have a nice day!"
     end
   end
 

@@ -17,7 +17,7 @@ class LocateUrgentCare::Scraper
     when number_of_pages == 0
       nil
     when number_of_pages == 1
-      doc.css('div.description')
+      results = doc.css('div.description')
     when number_of_pages > 1
       results =[] + doc.css('div.description')
       
@@ -35,7 +35,7 @@ class LocateUrgentCare::Scraper
 
   def self.scrape_clinic_info(clinic_pages)
      
-    clinics_array = clinic_pages.each.map do |clinic|
+    clinics_array = clinic_pages.map do |clinic|
       next if clinic.css('div.coming-soon').text.match(/Coming Soon!/)
       clinic_hash = {}
       clinic_hash[:name]       = clinic.css('h2>a').text
