@@ -22,7 +22,7 @@ class LocateUrgentCare::CommandLineInterface
       puts "\nInvalid zip code."
       get_zip_code
     end
-    
+    #binding.pry
   end
 
   def get_category_id
@@ -41,6 +41,7 @@ class LocateUrgentCare::CommandLineInterface
     clinic_pages = LocateUrgentCare::Scraper.scrape_clinic_pages(@zip_code,@category_id)
     clinics_array = LocateUrgentCare::Scraper.scrape_clinic_info(clinic_pages)
     LocateUrgentCare::Clinic.create_clinics(clinics_array)
+    binding.pry
   end
 
   def display_clinic_names
@@ -63,7 +64,6 @@ class LocateUrgentCare::CommandLineInterface
       clinic = LocateUrgentCare::Clinic.all[input-1]
       puts "\nName      : #{clinic.name}"
       puts "Tel       : #{clinic.tel}"
-      puts "Address   : #{clinic.address}"
       puts "Distance  : #{clinic.distance}"
       puts "url       : #{clinic.url}"
       puts "rating    : #{clinic.rating}"

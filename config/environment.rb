@@ -15,6 +15,6 @@ Capybara.run_server = false
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, 
-  #phantomjs_options: ['--load-images=false', '--disk-cache=false'],
+  js_error: false,
   debug: false, :default_wait_time => 30, :timeout => 90 )
 end

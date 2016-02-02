@@ -1,8 +1,8 @@
 class LocateUrgentCare::Clinic
 
-  attr_accessor :name, :url, :tel, :rating, :distance, :directions
+  attr_accessor :name, :url, :tel, :rating, :distance, :directions, :address
   
-  @all = []
+  @@all = []
 
   def initialize(attributes = {})
     attributes.each do |key, value|
@@ -12,7 +12,7 @@ class LocateUrgentCare::Clinic
   end
 
   def self.all
-    @all
+    @@all
   end
 
   def self.create_clinics(clinics_array)
