@@ -1,12 +1,12 @@
 class LocateUrgentCare::Scraper
-  extend Capybara::DSL
+  include Capybara::DSL
 
   Base_url = "https://www.urgentcarelocations.com/"
 
   
 
 
-  def self.scrape_clinic_pages(zip_code, catergory_id)
+  def scrape_clinic_pages(zip_code, catergory_id)
     
     search_url = Base_url + "search?q=#{zip_code}&page=1&open=1&category_ids= #{catergory_id}"
   	visit(search_url)
@@ -32,7 +32,7 @@ class LocateUrgentCare::Scraper
 
   
 
-  def self.scrape_clinic_info(clinic_pages)
+  def scrape_clinic_info(clinic_pages)
      
     clinics_array = clinic_pages.map do |clinic|
       next if clinic.css('div.coming-soon').text.match(/Coming Soon!/)

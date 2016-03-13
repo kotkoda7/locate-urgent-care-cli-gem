@@ -38,8 +38,9 @@ class LocateUrgentCare::CommandLineInterface
   end
 
   def find_clinics
-    clinic_pages = LocateUrgentCare::Scraper.scrape_clinic_pages(@zip_code,@category_id)
-    clinics_array = LocateUrgentCare::Scraper.scrape_clinic_info(clinic_pages)
+    scraper = LocateUrgentCare::Scraper.new
+    clinic_pages = scraper.scrape_clinic_pages(@zip_code,@category_id)
+    clinics_array = scraper.scrape_clinic_info(clinic_pages)
     LocateUrgentCare::Clinic.create_clinics(clinics_array)
   end
 
