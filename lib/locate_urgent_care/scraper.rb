@@ -13,6 +13,19 @@ class LocateUrgentCare::Scraper
     doc = Nokogiri::HTML(html)
     number_of_entries = doc.css('span.locations-found')[0].text.to_i
     number_of_pages = (number_of_entries/5.0).floor + (number_of_entries % 5 == 0 ? 0:1)
+    if number_of_pages > 0
+      results = (1..number_of_pages).inject([]) do |array,page|
+        page_url = Base_url + "search?q=#{zip_code}&page=#{page}&open=1&category_ids= #{catergory_id}"
+        visit(page_url)
+        array + Nokogiri::HTML(html).css('div.description')
+      end
+    else
+      results=[]
+    end
+    
+  end
+
+=begin    
     case 
     when number_of_pages == 0
       results = []
@@ -29,6 +42,7 @@ class LocateUrgentCare::Scraper
       results
     end
   end
+=end
 
   
 
