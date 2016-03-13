@@ -1,5 +1,0 @@
-require "locate_urgent_care/version"
-
-module LocateUrgentCare
-  # Your code goes here...
-end

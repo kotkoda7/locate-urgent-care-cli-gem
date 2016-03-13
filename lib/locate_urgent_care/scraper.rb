@@ -40,7 +40,9 @@ class LocateUrgentCare::Scraper
       clinic_hash[:name]       = clinic.css('h2>a').text
       clinic_hash[:distance]   = clinic.css("span.distance").text.match(/\(([\w\s.]+)\)/)[1]
       clinic_hash[:address]    = clinic.css("span.address.no-mobile").text.match(/\w[\w., ]+/)[0]
-      clinic_hash[:tel]        = clinic.css("a.mobile-only").text.match(/(\d{3}-\d{3}-\d{3})/)[1]
+      if clinic.css("a.mobile-only").text.match(/(\d{3}-\d{3}-\d{3})/)
+        clinic_hash[:tel]      = clinic.css("a.mobile-only").text.match(/(\d{3}-\d{3}-\d{3})/)[1]
+      end
       clinic_hash[:directions] = clinic.css("div.cta> ul li")[1].css('a')[0]["href"]
       clinic_hash[:rating]     = clinic.css("span.rating").to_s.match(/stars\sstar-[0-9]/)[0][-1].to_i
       clinic_hash[:url]        = clinic.css("h2>a")[0]['href']
